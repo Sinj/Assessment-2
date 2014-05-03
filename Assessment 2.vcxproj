@@ -74,7 +74,9 @@
     <ClCompile Include="Matrix.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DoublyLinkedList.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
