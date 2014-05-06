@@ -34,7 +34,7 @@ int main(int argc, char* args[])
 	//checker
 	bool fine = false;
 	//R & C of current and goal
-	double currentR = 0, currentC = 0, goalR = 0, goalC = 0;
+	double currentR = 0, currentC = 0, goalR = 0, goalC = 0, Gval = 10;
 	//M = Rows and N = columns in the image,
 	int M = 20; int N = 30;
 	//set up lists
@@ -153,15 +153,98 @@ int main(int argc, char* args[])
 		//Update Screen
 		SDL_Flip(screen);
 		//--------------------------------------------------------------------------------------------------------------------
+		
+		//check if goal found
 		if(currentC == goalC && currentC == goalR)
 		{
 			cout<<"Goal found";
 		}
 		else
-		{
-			close.InsertFront(currentR - 1, currentR + 1, currentC - 1, currentC + 1, NULL, manhattan(currentR, currentC, goalR, goalC));
+		{//take the current R & C, NULL parent using the manhattan
+			Openlist.InsertFront(currentR, currentC, NULL, NULL, 0, 0);
+			bool goal = false;
+			//neighbours 
+			//added N neighbour,check for wall................................................
+			while(goal = false){
+				if (layout.get(currentR - 1, currentC) == 0)
+				{//check if in closed or open list
+					if (Openlist.Search1(currentR - 1, currentC) == 0 && close.Search1(currentR - 1, currentC) == 0)
+					{
+						cout << "North of current not in a list\n";
+						Openlist.InsertFront(currentR - 1, currentC, currentR, currentC, Gval, manhattan(currentR - 1, currentC, goalR, goalC));
+						cout << "North is now in list\n";
+					}
+					//then added it to openlist
+					else{
+						cout << "North is in a list\n";
+					}
+				}
+				else
+				{
+					cout << "North from current is a wall, dont store\n";
+				}
+				//add S neighbour,check for wall
+				if (layout.get(currentR + 1, currentC) == 0)
+				{
+					if (Openlist.Search1(currentR + 1, currentC) == 0 && close.Search1(currentR + 1, currentC) == 0)
+					{
+						cout << "South of current not in a list\n";
+						Openlist.InsertFront(currentR + 1, currentC, currentR, currentC, Gval, manhattan(currentR + 1, currentC, goalR, goalC));
+						cout << "South is now in list\n";
+					}
+					//then added it to openlist
+					else{
+						cout << "South is in a list\n";
+					}
+				}
+				else
+				{
+					cout << "South from current is a wall, dont store\n";
+				}
+				//add W neighbour,check for wall
+				if (layout.get(currentR, currentC - 1) == 0)
+				{
+					//check if in closed or open list
+					if (Openlist.Search1(currentR, currentC - 1) == 0 && close.Search1(currentR, currentC - 1) == 0)
+					{
+						cout << "West of current not in a list\n";
+						Openlist.InsertFront(currentR, currentC - 1, currentR, currentC, Gval, manhattan(currentR, currentC - 1, goalR, goalC));
+						cout << "West is now in list\n";
+					}
+					//then added it to openlist
+					else{
+						cout << "West is in a list\n";
+					}
+				}
+				else
+				{
+					cout << "West from current is a wall, dont store\n";
+				}
+				//add E neighbour,check for wall
+				if (layout.get(currentR, currentC + 1) == 0)
+				{
+					//check if in closed or open list
+					if (Openlist.Search1(currentR, currentC + 1) == 0 && close.Search1(currentR, currentC + 1) == 0)
+					{
+						cout << "East of current not in a list\n";
+						Openlist.InsertFront(currentR, currentC + 1, currentR, currentC, Gval, manhattan(currentR, currentC + 1, goalR, goalC));
+						cout << "East is now in list\n";
+					}
+					//then added it to openlist
+					else{
+						cout << "East is in a list\n";
+					}
+				}
+				else
+				{
+					cout << "East from current is a wall, dont store\n";
+				}
+			}
 		}
-
+		cout<<Openlist.getSize();
+		//once neighbours checked find the smalled F value in the openlist
+		
+		//once smallest found, current added  to close list, make it current cords, start from the top
 
 		//--------------------------------------------------------------------------------------------------------------------
 		//Pause

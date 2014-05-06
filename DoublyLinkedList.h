@@ -1,5 +1,9 @@
 //DoublyLinkedList.h
-//Implementation of a doubly linked list
+//Implementation of a doubly linked 
+#ifndef __DoublyLinkedList_H_INCLUDED__   // if DoublyLinkedList.h hasn't been included yet...
+#define __DoublyLinkedList_H_INCLUDED__   //   #define this so the compiler knows it has been included
+
+
 #include "Node.h"
 #include <stddef.h>
 #pragma once
@@ -18,8 +22,12 @@ public:
 
 	//searches for a node
 	Node<T>* DoublyLinkedList::Search(T val);
+	//searches nodes for values
+	int DoublyLinkedList::Search1(int,int);
+	//pop and push
+	void DoublyLinkedList<T>::PopPush(DoublyLinkedList<T>, DoublyLinkedList<T>);
 	//inserts a new node at the front of the list and sets its value
-	void DoublyLinkedList::InsertFront(T No, T So, T We, T Ea, T Par, T He);
+	void DoublyLinkedList::InsertFront(T R, T C, T Parx, T Pary, T Ge, T He);
 	//insert a new node at the back of the list
 	void DoublyLinkedList::InsertBack(T val);
 	//insert a node in the middle of a list
@@ -48,6 +56,8 @@ DoublyLinkedList<T>::~DoublyLinkedList()
 
 }
 
+
+
 //search the list for a node
 template <class T>
 Node<T>* DoublyLinkedList<T>::Search(T val)
@@ -69,19 +79,45 @@ Node<T>* DoublyLinkedList<T>::Search(T val)
 	//if it doesnt find the value
 	return NULL;
 }
+//test-search for X & Y 
+template <class T>
+int DoublyLinkedList<T>::Search1(int R, int C)
+{
+	//create a temporary node
+	Node<T> *key;
+	//make it point to the same node as the list head
+	key = first;
+	//repeat while key points to a list element
+	while (key)
+	{
+		if (key->M == R && key->N == C)
+		{
+			return 1;
+		}
+		//increment the node to the next one
+		key = key->next;
+	}
+	//if it doesnt find the value
+	return 0;
+}
+template <class T>
+void DoublyLinkedList<T>::PopPush(DoublyLinkedList<T> open, DoublyLinkedList<T> close)
+{
+	open.
+}
 
 //insert a node at the front of the list
 template <class T>
-void DoublyLinkedList<T>::InsertFront(T No, T So, T We,T Ea,T Par, T He)
+void DoublyLinkedList<T>::InsertFront(T R, T C, T Parx, T Pary, T Ge, T He)
 {
 	//create a new node
 	Node<T> *newNode = new Node<T>;
 	//set the value of the new node
-	newNode->N = No;
-	newNode->S = So;
-	newNode->W = We;
-	newNode->E = Ea;
-	newNode->Parent = par;
+	newNode->M = R;
+	newNode->N = C;
+	newNode->ParentX = Parx;
+	newNode->ParentY = Pary;
+	newNode->G = Ge;
 	newNode->H = He;
 	newNode->F = newNode->G + He;
 	
@@ -127,6 +163,7 @@ void DoublyLinkedList<T>::InsertBack(T val)
 	size++;
 }
 
+
 //insert a node in the middle of a list
 template <class T>
 void DoublyLinkedList<T>::InsertAfter(T val, Node<T> *after)
@@ -160,3 +197,4 @@ int DoublyLinkedList<T>::getSize()
 {
 	return size;
 }
+#endif
