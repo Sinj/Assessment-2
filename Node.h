@@ -5,15 +5,15 @@ template <class T>
 class Node
 {
 public:
-		//payload for the node - defined by T
-		T M,N,
-			ParentX, ParentY, G, H, F;
-		//pointer to the next node
-		Node *next;
-		Node *previous;
+	//payload for the node - defined by T
+	T M, N,
+		ParentX, ParentY, G, H, F;
+	//pointer to the next node
+	Node *next;
+	Node *previous;
 
-		Node();
-		~Node();
+	Node();
+	~Node();
 };
 
 template <class T>

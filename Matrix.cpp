@@ -20,10 +20,10 @@ Matrix::Matrix(int sizeR, int sizeC, double val){
 	}
 }
 Matrix::Matrix(int sizeR, int sizeC, double* pData){
-	
+
 	M = sizeR;
 	N = sizeC;
-	
+
 	data = new double[M*N];
 	//copy pdata to data
 	for (int ii = 0; ii < M; ii++){
@@ -55,7 +55,7 @@ Matrix::~Matrix()
 //Matrix operators 
 Matrix Matrix::operator+(const Matrix& X)
 {
-	
+
 	double val = 0;
 	Matrix Z(M, N, val); //make blank matrix
 	for (int i = 0; i < M; i++)
@@ -67,7 +67,7 @@ Matrix Matrix::operator+(const Matrix& X)
 }
 Matrix Matrix::operator-(const Matrix& X)
 {
-	
+
 	double val = 0;
 	Matrix Z(M, N, val);
 	for (int i = 0; i < M; i++)
@@ -79,7 +79,7 @@ Matrix Matrix::operator-(const Matrix& X)
 }
 Matrix Matrix::operator*(const Matrix& X)
 {
-	
+
 	double val = 0;
 	Matrix Z(M, N, val);
 	for (int i = 0; i < M; i++)
