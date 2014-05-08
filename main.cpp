@@ -262,7 +262,7 @@ int main(int argc, char* args[])
 				//system("PAUSE");
 				//cout << Openlist.getSize();
 				//once neighbours checked added current to the close list
-				Openlist.PopPush(Openlist.NodeSearch(currentR, currentC), close);
+				Openlist.PopPush(Openlist.NodeSearch(currentR, currentC), &close);
 				//find smallest F.
 				currentR = Openlist.Search()->M;
 				//cout << currentR << endl;
@@ -272,7 +272,7 @@ int main(int argc, char* args[])
 				if (currentR == goalR && currentC == goalC){
 					cout << "Path found" << endl;
 					state = 1;
-					Openlist.PopPush(Openlist.NodeSearch(currentR, currentC), close);
+					Openlist.PopPush(Openlist.NodeSearch(currentR, currentC), &close);
 				}
 				else if (Openlist.size == 0) {
 					cout << "No path can be found" << endl;
@@ -290,8 +290,8 @@ int main(int argc, char* args[])
 				currentR = close.NodeSearch(currentR, currentC)->parentt->M;
 				currentC = close.NodeSearch(currentR, currentC)->parentt->N;
 				//add block
-				Rectangle.x = currentR*Blocksize;
-				Rectangle.y = currentC*Blocksize;
+				Rectangle.y = currentR*Blocksize;
+				Rectangle.x = currentC*Blocksize;
 				SDL_FillRect(screen, &Rectangle, tests);
 				SDL_Flip(screen);
 			}

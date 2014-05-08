@@ -26,7 +26,7 @@ public:
 	//searches nodes for values
 	int DoublyLinkedList::Search1(int, int);
 	//will pop a node and push it into another list
-	void DoublyLinkedList<T>::PopPush(Node<T> *data, DoublyLinkedList<T> closed);
+	void DoublyLinkedList<T>::PopPush(Node<T> *data, DoublyLinkedList<T> *closed);
 	//inserts a new node at the front of the list and sets its value
 	void DoublyLinkedList::InsertFront(T R, T C, T Parx, T Pary, T Ge, T He, Node<T>* par);
 	//insert a new node at the back of the list
@@ -63,7 +63,7 @@ DoublyLinkedList<T>::~DoublyLinkedList()
 }
 
 template <class T>
-void DoublyLinkedList<T>::PopPush(Node<T> *data, DoublyLinkedList<T> closed)
+void DoublyLinkedList<T>::PopPush(Node<T> *data, DoublyLinkedList<T> *closed)
 {
 	Node<T> *tNext;
 	Node<T> *tPrevious;
@@ -71,12 +71,10 @@ void DoublyLinkedList<T>::PopPush(Node<T> *data, DoublyLinkedList<T> closed)
 	tNext = data->next;
 	tPrevious = data->previous;
 
-	cout << closed.size << endl;
+	cout << closed->size << endl;
 	cout << size << endl;
-
-	//Delete in a while
-	//cout << tNext << endl;
-	//cout << tPrevious << endl;
+	
+	
 
 	if (tPrevious != NULL){
 		tPrevious->next = tNext;
@@ -85,16 +83,28 @@ void DoublyLinkedList<T>::PopPush(Node<T> *data, DoublyLinkedList<T> closed)
 		tNext->previous = tPrevious;
 	}
 
-	//system("PAUSE");
 
-	//Delete in a while
-	//cout << tNext->previous << endl;
-	//cout << tPrevious->next << endl;
-
-	closed.InsertFront(data->ParentX, data->ParentY, data->M, data->M, data->H, data->G,data->parentt);
+	//closed.InsertFront(data->M, data->N, data->ParentX, data->ParentY, data->G, data->H, data->parentt);
 	data->next = NULL;
 	data->previous = NULL;
-	cout << closed.size << endl;
+
+	//check if the list is empty
+	if (closed->first == NULL)
+	{
+		//set first and last to both point to newNode
+		closed->first = data;
+		closed->last = data;
+	}
+	else{
+		//set the 'previous' pointer pointed to by 'first' to hold newNode's address
+		closed->first->previous = data;
+		//set the next pointer of newNode to hold the next nodes address (address pointed to by first)
+		data->next = closed->first;
+		//set first to point to newNode
+		closed->first = data;
+	}
+	closed->size++;
+	cout << closed->size << endl;
 	size--;
 	cout << size << endl;
 	/*
