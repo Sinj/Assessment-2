@@ -28,7 +28,7 @@ public:
 	//will pop a node and push it into another list
 	void DoublyLinkedList<T>::PopPush(Node<T> *data, DoublyLinkedList<T> closed);
 	//inserts a new node at the front of the list and sets its value
-	void DoublyLinkedList::InsertFront(T R, T C, T Parx, T Pary, T Ge, T He);
+	void DoublyLinkedList::InsertFront(T R, T C, T Parx, T Pary, T Ge, T He, Node<T>* par);
 	//insert a new node at the back of the list
 	void DoublyLinkedList::InsertBack(T val);
 	//insert a node in the middle of a list
@@ -87,7 +87,7 @@ void DoublyLinkedList<T>::PopPush(Node<T> *data, DoublyLinkedList<T> closed)
 	//cout << tNext->previous << endl;
 	//cout << tPrevious->next << endl;
 
-	closed.InsertFront(data->ParentX, data->ParentY, data->M, data->M, data->H, data->G);
+	closed.InsertFront(data->ParentX, data->ParentY, data->M, data->M, data->H, data->G,data->parentt);
 	data->next = NULL;
 	data->previous = NULL;
 	cout << closed.size << endl;
@@ -216,7 +216,7 @@ Node<T>* DoublyLinkedList<T>::Fsearch()
 
 //insert a node at the front of the list
 template <class T>
-void DoublyLinkedList<T>::InsertFront(T R, T C, T Parx, T Pary, T Ge, T He)
+void DoublyLinkedList<T>::InsertFront(T R, T C, T Parx, T Pary, T Ge, T He, Node<T>* par)
 {
 	//create a new node
 	Node<T> *newNode = new Node<T>;
@@ -228,6 +228,7 @@ void DoublyLinkedList<T>::InsertFront(T R, T C, T Parx, T Pary, T Ge, T He)
 	newNode->G = Ge;
 	newNode->H = He;
 	newNode->F = newNode->G + He;
+	newNode->parentt = par;
 
 	//check if the list is empty
 	if (first == NULL)

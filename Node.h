@@ -8,6 +8,7 @@ public:
 	//payload for the node - defined by T
 	T M, N,
 		ParentX, ParentY, G, H, F;
+	Node <T>* parentt;
 	//pointer to the next node
 	Node *next;
 	Node *previous;

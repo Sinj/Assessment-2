@@ -165,7 +165,7 @@ int main(int argc, char* args[])
 		}
 		else
 		{//take the current R & C, NULL parent using the manhattan
-			Openlist.InsertFront(currentR, currentC, NULL, NULL, 0, 0);
+			Openlist.InsertFront(currentR, currentC, NULL, NULL, 0, 0,NULL);
 
 			while (state == 0) // not working ...
 			{
@@ -177,7 +177,7 @@ int main(int argc, char* args[])
 					if (Openlist.Search1(currentR - 1, currentC) == 0 && close.Search1(currentR - 1, currentC) == 0)
 					{//then added it to openlist
 						cout << "North of current not in a list\n";
-						Openlist.InsertFront(currentR - 1, currentC, currentR, currentC, Gval, euclid(currentR - 1, currentC, goalR, goalC));
+						Openlist.InsertFront(currentR - 1, currentC, currentR, currentC, Gval, euclid(currentR - 1, currentC, goalR, goalC),Openlist.NodeSearch(currentR, currentC));
 						cout << "North is now in list\n";
 
 					}
@@ -196,7 +196,7 @@ int main(int argc, char* args[])
 					if (Openlist.Search1(currentR + 1, currentC) == 0 && close.Search1(currentR + 1, currentC) == 0)
 					{//then added it to openlist
 						cout << "South of current not in a list\n";
-						Openlist.InsertFront(currentR + 1, currentC, currentR, currentC, Gval, euclid(currentR + 1, currentC, goalR, goalC));
+						Openlist.InsertFront(currentR + 1, currentC, currentR, currentC, Gval, euclid(currentR + 1, currentC, goalR, goalC), Openlist.NodeSearch(currentR, currentC));
 						cout << "South is now in list\n";
 
 						//Rectangle.y = currentR + 1 * Blocksize;
@@ -220,7 +220,7 @@ int main(int argc, char* args[])
 					if (Openlist.Search1(currentR, currentC - 1) == 0 && close.Search1(currentR, currentC - 1) == 0)
 					{
 						cout << "West of current not in a list\n";
-						Openlist.InsertFront(currentR, currentC - 1, currentR, currentC, Gval, euclid(currentR, currentC - 1, goalR, goalC));
+						Openlist.InsertFront(currentR, currentC - 1, currentR, currentC, Gval, euclid(currentR, currentC - 1, goalR, goalC), Openlist.NodeSearch(currentR, currentC));
 						cout << "West is now in list\n";
 						//Rectangle.y = currentR * Blocksize;
 						//Rectangle.x = currentC - 1 * Blocksize;
@@ -239,10 +239,10 @@ int main(int argc, char* args[])
 				if (layout.get(currentR, currentC + 1) == 0)
 				{
 					//check if in closed or open list
-					if (Openlist.Search1(currentR, currentC + 1) == 0 && close.Search1(currentR, currentC + 1) == 0)
+					if (Openlist.Search1(currentR, currentC + 1) == 0 && close.Search1(currentR, currentC) == 0)
 					{
 						cout << "East of current not in a list\n";
-						Openlist.InsertFront(currentR, currentC + 1, currentR, currentC, Gval, euclid(currentR, currentC + 1, goalR, goalC));
+						Openlist.InsertFront(currentR, currentC + 1, currentR, currentC, Gval, euclid(currentR, currentC + 1, goalR, goalC), Openlist.NodeSearch(currentR, currentC));
 						cout << "East is now in list\n";
 						//Rectangle.y = currentR  * Blocksize;
 						//Rectangle.x = currentC + 1 * Blocksize;
