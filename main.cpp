@@ -287,11 +287,11 @@ int main(int argc, char* args[])
 		{
 			while (close.NodeSearch(currentR, currentC)->parentt != NULL)
 			{
-				currentR = close.NodeSearch(currentR, currentC)->parentt->M;
-				currentC = close.NodeSearch(currentR, currentC)->parentt->N;
+				double Rtemp = close.NodeSearch(currentR, currentC)->parentt->M;
+				double Ctemp = close.NodeSearch(currentR, currentC)->parentt->N;
 				//add block
-				Rectangle.y = currentR*Blocksize;
-				Rectangle.x = currentC*Blocksize;
+				Rectangle.y = Rtemp*Blocksize;
+				Rectangle.x = Ctemp*Blocksize;
 				SDL_FillRect(screen, &Rectangle, tests);
 				SDL_Flip(screen);
 			}
