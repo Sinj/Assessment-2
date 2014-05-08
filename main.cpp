@@ -153,7 +153,7 @@ int main(int argc, char* args[])
 		Rectangle.x = goalC*Blocksize;
 		SDL_FillRect(screen, &Rectangle, Red);
 
-	
+
 		//Update Screen
 		SDL_Flip(screen);
 		/*========================== A *==========================================================*/
@@ -165,23 +165,23 @@ int main(int argc, char* args[])
 		}
 		else
 		{//take the current R & C, NULL parent using the manhattan
-			Openlist.InsertFront(currentR, currentC, NULL, NULL, 0, 0,NULL);
+			Openlist.InsertFront(currentR, currentC, NULL, NULL, 0, 0, NULL);
 
 			while (state == 0) // not working ...
 			{
 				/*========================== neighbours ==========================================================*/
 
 				//added N neighbour,check for wall
-								if (layout.get(currentR - 1, currentC) == 0)
+				if (layout.get(currentR - 1, currentC) == 0)
 				{//check if in closed or open list
 					if (Openlist.Search1(currentR - 1, currentC) == 0 && close.Search1(currentR - 1, currentC) == 0)
 					{//then added it to openlist
 						cout << "North of current not in a list\n";
-						Openlist.InsertFront(currentR - 1, currentC, currentR, currentC, Gval, euclid(currentR - 1, currentC, goalR, goalC),Openlist.NodeSearch(currentR, currentC));
+						Openlist.InsertFront(currentR - 1, currentC, currentR, currentC, Gval, euclid(currentR - 1, currentC, goalR, goalC), Openlist.NodeSearch(currentR, currentC));
 						cout << "North is now in list\n";
 
 					}
-					
+
 					else{
 						cout << "North is in a list\n";
 					}
@@ -204,7 +204,7 @@ int main(int argc, char* args[])
 						//SDL_FillRect(screen, &Rectangle, tests);
 						//SDL_Flip(screen);
 					}
-					
+
 					else{
 						cout << "South is in a list\n";
 					}
@@ -272,9 +272,10 @@ int main(int argc, char* args[])
 				if (currentR == goalR && currentC == goalC){
 					cout << "Path found" << endl;
 					state = 1;
+					Openlist.PopPush(Openlist.NodeSearch(currentR, currentC), close);
 				}
 				else if (Openlist.size == 0) {
-					cout << "Path found" << endl;
+					cout << "No path can be found" << endl;
 					state = 2;
 
 				}
@@ -282,7 +283,19 @@ int main(int argc, char* args[])
 			}
 		}
 		/*========================== A* end ==========================================================*/
-	
+		if (state == 1)
+		{
+			while (close.NodeSearch(currentR, currentC)->parentt != NULL)
+			{
+				currentR = close.NodeSearch(currentR, currentC)->parentt->M;
+				currentC = close.NodeSearch(currentR, currentC)->parentt->N;
+				//add block
+				Rectangle.x = currentR*Blocksize;
+				Rectangle.y = currentC*Blocksize;
+				SDL_FillRect(screen, &Rectangle, tests);
+				SDL_Flip(screen);
+			}
+		}
 		//stop the window from closing until the user closes the window
 		SDL_Event event;
 		bool gameRunning = true;

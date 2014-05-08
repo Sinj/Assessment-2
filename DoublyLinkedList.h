@@ -39,6 +39,10 @@ public:
 	int DoublyLinkedList::getSize();
 	Node<T>* DoublyLinkedList<T>::Fsearch();
 
+	//get parent location
+	Node<T>* DoublyLinkedList<T>::getparX(int x, int y);
+	Node<T>* DoublyLinkedList<T>::getparY(int x, int y);
+
 	DoublyLinkedList();
 	~DoublyLinkedList();
 
@@ -126,7 +130,48 @@ Node<T>* DoublyLinkedList<T>::NodeSearch(int x, int y)
 	//if it doesnt find the value
 	return NULL;
 }
+template <class T>
+Node<T>* DoublyLinkedList<T>::getparX(int x, int y)
+{
+	//create a temporary node
+	Node<T> *key;
+	//make it point to the same node as the list head
+	key = first;
+	//repeat while key points to a list element
+	while (key)
+	{
+		if (key->M == x && key->N == y)
+		{
+			return M;
+		}
+		//increment the node to the next one
+		key = key->next;
+	}
 
+	//if it doesnt find the value
+	return NULL;
+}
+template <class T>
+Node<T>* DoublyLinkedList<T>::getparY(int x, int y)
+{
+	//create a temporary node
+	Node<T> *key;
+	//make it point to the same node as the list head
+	key = first;
+	//repeat while key points to a list element
+	while (key)
+	{
+		if (key->M == x && key->N == y)
+		{
+			return N;
+		}
+		//increment the node to the next one
+		key = key->next;
+	}
+
+	//if it doesnt find the value
+	return NULL;
+}
 //-------------------------------------------------------------------------
 //search the list for a node
 template <class T>
